@@ -10,9 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { InfoChartComponent } from './pages/info-chart/info-chart.component';
 
 @NgModule({
-  declarations: [AppComponent, OverviewComponent],
+  declarations: [AppComponent, OverviewComponent, InfoChartComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -5,3 +5,8 @@
 .mat-column-position {
   flex: 0 0 30px;
 }
+
+.mat-row:hover {
+  background-color: #eaeaea;
+  cursor: pointer;
+}

@@ -25,7 +25,6 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private readonly cryptoService: CryptoApiService) {
-
     cryptoService.getCryptos().subscribe((res) => {
       this.dataSource.data = res;
       console.log(this.dataSource);
@@ -37,5 +36,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  open() {
+    console.log('RADI');
   }
 }
