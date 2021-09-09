@@ -8,6 +8,8 @@ import { CryptoApiService } from './services/crypto-api.service';
 import { OverviewComponent } from './pages/overview/overview.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [AppComponent, OverviewComponent],
@@ -16,7 +18,9 @@ import { MatTableModule } from '@angular/material/table';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [CryptoApiService],
   bootstrap: [AppComponent],

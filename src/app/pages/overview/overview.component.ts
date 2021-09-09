@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { CryptocurrencyDetail } from 'src/app/models/CryptocurrencyDetail';
 import { CryptoApiService } from 'src/app/services/crypto-api.service';
 
@@ -7,54 +10,32 @@ import { CryptoApiService } from 'src/app/services/crypto-api.service';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit {
-  columns = [
-    {
-      columnId: 'id',
-      header: '#',
-      cell: (row: CryptocurrencyDetail) => row.id,
-    },
-    {
-      columnId: 'coin',
-      header: 'Coin',
-      cell: (row: CryptocurrencyDetail) => row.image,
-    },
-    {
-      columnId: 'name',
-      header: 'Name',
-      cell: (row: CryptocurrencyDetail) => row.name,
-    },
-    {
-      columnId: 'current_price',
-      header: 'Current Price',
-      cell: (row: CryptocurrencyDetail) => row.current_price,
-    },
-    {
-      columnId: 'market_cap',
-      header: 'Market Cap',
-      cell: (row: CryptocurrencyDetail) => row.market_cap,
-    },
-    {
-      columnId: 'percentage',
-      header: '24h',
-      cell: (row: CryptocurrencyDetail) => row.price_change_percentage_24,
-    },
+export class OverviewComponent implements OnInit, AfterViewInit {
+  public displayedColumns: string[] = [
+    'market_cap_rank',
+    'name',
+    'current_price',
+    'market_cap',
+    'price_change_percentage_24h',
   ];
 
-  displayedColumns: string[] = [];
-
-  dataSource: CryptocurrencyDetail[] = [];
+  public dataSource: MatTableDataSource<CryptocurrencyDetail> =
+    new MatTableDataSource<CryptocurrencyDetail>([]);
+  @ViewChild(MatPaginator) private paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private readonly cryptoService: CryptoApiService) {
-    this.displayedColumns = this.columns.map(x => x.columnId);
-    console.log(this.displayedColumns);
 
     cryptoService.getCryptos().subscribe((res) => {
-      this.dataSource = res;
-      console.log(res[0].id);
-
+      this.dataSource.data = res;
+      console.log(this.dataSource);
     });
   }
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 }

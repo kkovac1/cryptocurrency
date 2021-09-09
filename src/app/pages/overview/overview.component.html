@@ -1,9 +1,40 @@
-<mat-table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container [matColumnDef]="column.columnId" *ngFor="let column of columns">
-    <mat-header-cell mat-header-cell *matHeaderCellDef>{{ column.header }}</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let element">{{ column.cell(element) }}</mat-cell>
-  </ng-container>
+<div style="padding: 2rem;">
+  <div class="mat-elevation-z8">
 
-  <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</mat-table>
+    <mat-table mat-table matSort [dataSource]="dataSource">
+
+      <ng-container matColumnDef="market_cap_rank">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+        <mat-cell  mat-cell *matCellDef="let element">{{ element.market_cap_rank }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Coin</mat-header-cell>
+        <mat-cell  mat-cell *matCellDef="let element">
+          <img style="width: 30px; height: 30px; margin-right: 0.5rem;" [src]="element.image"><span>{{ element.name }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="current_price">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Current Price</mat-header-cell>
+        <mat-cell  mat-cell *matCellDef="let element">${{ element.current_price | number }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="market_cap">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Market Cap</mat-header-cell>
+        <mat-cell  mat-cell *matCellDef="let element">${{ element.market_cap | number }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="price_change_percentage_24h">
+        <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>24h</mat-header-cell>
+        <mat-cell [ngStyle]="{'color': element.price_change_percentage_24h < 0 ? 'red' : '#1db31d'}" mat-cell *matCellDef="let element">{{ element.price_change_percentage_24h | number : '1.1-1' }}%</mat-cell>
+      </ng-container>
+
+
+      <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="dataSource.data.length" [pageSize]="10" aria-label="Select page"></mat-paginator>
+  </div>
+</div>
