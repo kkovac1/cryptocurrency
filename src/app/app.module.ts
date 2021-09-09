@@ -6,18 +6,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CryptoApiService } from './services/crypto-api.service';
 import { OverviewComponent } from './pages/overview/overview.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    OverviewComponent
-  ],
+  declarations: [AppComponent, OverviewComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    MatTableModule
   ],
   providers: [CryptoApiService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
